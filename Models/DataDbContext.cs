@@ -1,9 +1,11 @@
 ﻿using Handmade.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Handmades.Models
 {
-    public class DataDbContext   : DbContext
+    public class DataDbContext   : IdentityDbContext<ApplicationUser>
     {
         public DataDbContext()
         {
@@ -17,13 +19,13 @@ namespace Handmades.Models
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetails> OrderDetails { get; set; }
         public DbSet<Review> Reviews { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Login> Logins { get; set; }
+        public DbSet<User> _Users { get; set; }
+        public DbSet<Login> _Logins { get; set; }
         public DbSet<Signup> Signups { get; set; }
 
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Payment> Payments { get; set; }
-        public DbSet<Role> Roles { get; set; }
+        public DbSet<Role> _Roles { get; set; }
         public DbSet<Supplier> suppliers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -33,6 +35,14 @@ namespace Handmades.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+
+            base.OnModelCreating(modelBuilder);
+
+            // إعداد المفتاح الأساسي لـ IdentityUserLogin
+            modelBuilder.Entity<IdentityUserLogin<string>>()
+                .HasKey(login => new { login.LoginProvider, login.ProviderKey });
+
             // إعدادات العلاقة بين Product و Category
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.Category)

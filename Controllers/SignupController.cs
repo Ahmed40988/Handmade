@@ -52,7 +52,7 @@ namespace Handmade.Controllers
 
                 };
 
-                _context.Users.Add(user);
+                _context._Users.Add(user);
                 await _context.SaveChangesAsync(); // حفظ التغييرات في قاعدة البيانات
 
                 return RedirectToAction("Sucssfulsignup", new { id = user.ID }); // استخدم ID المستخدم الجديد
@@ -63,7 +63,7 @@ namespace Handmade.Controllers
         public IActionResult Sucssfulsignup(int id)
         {
             // احصل على المستخدم من قاعدة البيانات باستخدام الـ ID
-            var user = _context.Users.FirstOrDefault(u => u.ID == id);
+            var user = _context._Users.FirstOrDefault(u => u.ID == id);
             if (user == null)
             {
                 return NotFound(); // في حالة عدم العثور على المستخدم

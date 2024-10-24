@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Handmades.Models;
-using Microsoft.AspNetCore.Http.Features; // تأكد من إضافة مساحة الاسم الصحيحة
+using Microsoft.AspNetCore.Http.Features;
+using Handmade.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 
 namespace Handmade
 {
@@ -14,10 +17,40 @@ namespace Handmade
             builder.Services.AddDbContext<DataDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            // إضافة إعدادات الحد الأقصى لحجم الملفات
+            // إعداد الهوية (Identity) وإضافة سياق البيانات
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(Options=>
+            {
+                Options.Password.RequireUppercase=false;
+                Options.Password.RequireLowercase=false;
+                Options.Password.RequireDigit=false;
+                Options.Password.RequireNonAlphanumeric = false;
+                Options.Password.RequiredLength=4;
+
+
+            })
+                .AddEntityFrameworkStores<DataDbContext>();
+
+            // تكوين خيارات الهوية (IdentityOptions)
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                options.User.AllowedUserNameCharacters =
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                options.User.RequireUniqueEmail = true; // إذا كان البريد الإلكتروني يجب أن يكون فريدًا
+            });
+
+            // إعدادات الحد الأقصى لحجم الملفات
             builder.Services.Configure<FormOptions>(options =>
             {
                 options.MultipartBodyLengthLimit = 10 * 1024 * 1024; // 10 ميغابايت
+            });
+
+            // إضافة خدمات الجلسة
+            builder.Services.AddDistributedMemoryCache(); // يستخدم لتخزين بيانات الجلسات في الذاكرة
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); // مدة الجلسة 30 دقيقة
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
             });
 
             // إضافة الخدمات إلى الحاوية.
@@ -34,11 +67,17 @@ namespace Handmade
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            
+            app.UseSession();
+
+            
+            app.UseAuthentication();  // Filter Authorize cookie 
+            app.UseAuthorization(); // Determines your role and what parts of the site you can access
+
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Account}/{action=Register}/{id?}");
 
             app.Run();
         }

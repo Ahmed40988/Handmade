@@ -1,8 +1,10 @@
 ﻿using Handmades.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Handmade.Controllers
 {
+    [Authorize]
     public class DashboardController : Controller
     {
         private readonly DataDbContext _context;
@@ -23,7 +25,7 @@ namespace Handmade.Controllers
         }
         public IActionResult listusers()
         {
-            var listusers = _context.Users.ToList();
+            var listusers = _context._Users.ToList();
             return View(listusers);
         }
 
