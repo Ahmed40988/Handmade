@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Handmades.Models
+namespace Handmade.Models
 {
     public class User
     {

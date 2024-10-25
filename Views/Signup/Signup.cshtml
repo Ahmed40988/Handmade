@@ -1,11 +1,11 @@
-﻿@model Handmades.Models.Signup
+﻿@model Handmade.Models.Signup
 @{
     ViewData["Title"] = "Signup";
 }
 <div class="container mt-5">
     <div class="card shadow-lg">
-        <div class="card-header text-white text-center" style="background: linear-gradient(135deg, #f2994a, #f2c94c);">
-            <h2>Join Handmades</h2>
+        <div class="card-header text-dark text-center" style="background: #FFC300 ;">
+            <h2>Join Handmade</h2>
         </div>
         <div class="card-body">
             <!-- اضافة enctype لدعم رفع الملفات -->
@@ -84,7 +84,7 @@
         background-size: cover;
         background-attachment: fixed;
         background-blend-mode: overlay;
-        background-color: rgba(255, 245, 238, 0.9);
+        background-color: rgba(255, 255, 255, 0.95);
     }
 
     .card {
@@ -100,20 +100,24 @@
     }
 
     .btn-custom {
-        background-color: #f2994a;
-        border-color: #f2994a;
-        color: #fff;
+        background-color: #FFC300;
+        border-color: #FFC300;
+        color:#3D464D !important;
+        
         border-radius: 6px;
         transition: background-color 0.3s ease;
+       
     }
 
         .btn-custom:hover {
-            background-color: #f2c94c;
+            background-color: #c99a96;
         }
 
     .card-header {
         font-family: 'Courier New', Courier, monospace; /* Font reflecting handmade theme */
         border-bottom: none;
+        color: #fff;
+        border-color: #c99a96;
     }
 </style>
 @* to Allow use validation in cline site don't go to server

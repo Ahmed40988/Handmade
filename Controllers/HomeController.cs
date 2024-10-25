@@ -2,7 +2,7 @@
 using Handmade.Models;
 using System.Collections.Generic;
 using System.Linq;
-using Handmades.Models;
+using Handmade.Models;
 using Handmade.ViewModel;
 
 public class HomeController : Controller

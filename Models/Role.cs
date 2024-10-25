@@ -1,8 +1,8 @@
-﻿using Handmades.Models;
+﻿
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace Handmades.Models
+namespace Handmade.Models
 {
     public class Role
     {

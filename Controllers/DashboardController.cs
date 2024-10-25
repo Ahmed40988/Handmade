@@ -1,10 +1,10 @@
-﻿using Handmades.Models;
+﻿using Handmade.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Handmade.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public class DashboardController : Controller
     {
         private readonly DataDbContext _context;

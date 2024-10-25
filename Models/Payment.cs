@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-namespace Handmades.Models
+namespace Handmade.Models
 {
     public class Payment
     {

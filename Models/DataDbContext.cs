@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Handmades.Models
+namespace Handmade.Models
 {
-    public class DataDbContext   : IdentityDbContext<ApplicationUser>
+    public class DataDbContext : IdentityDbContext<ApplicationUser>
     {
         public DataDbContext()
         {
@@ -111,11 +111,11 @@ namespace Handmades.Models
                 .HasForeignKey(c => c.Product_ID)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<Cart>()
-                .HasOne(c => c.Order)
-                .WithMany()
-                .HasForeignKey(c => c.Order_ID)
-                .OnDelete(DeleteBehavior.NoAction);
+            //modelBuilder.Entity<Cart>()
+            //    .HasOne(c => c.Order)
+            //    .WithMany()
+            //    .HasForeignKey(c => c.Order_ID)
+            //    .OnDelete(DeleteBehavior.NoAction);
 
             // إعدادات العلاقة بين Payment و Order
             modelBuilder.Entity<Payment>()

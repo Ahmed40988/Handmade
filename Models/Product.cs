@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewEngines;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Handmade.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Handmades.Models
+namespace Handmade.Models
 {
     public class Product
     {
@@ -36,6 +36,7 @@ namespace Handmades.Models
 
         [ForeignKey("SupplierId")]
         public virtual Supplier? Supplier { get; set; }
+        public ICollection<Cart> Carts { get; set; }
     }
 
 }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Handmades.Models;
+using Handmade.Models;
 using Handmade.Models;
 using System.IO;
 using Microsoft.AspNetCore.Http;
@@ -15,6 +15,8 @@ using System.Security.Claims;
 
 namespace Handmade.Controllers
 {
+    [Authorize(Roles = "admin,Supplier")]
+
     public class ProductController : Controller
     {
         private readonly DataDbContext _context;

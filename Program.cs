@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Handmades.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http.Features;
 using Handmade.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
+
+
 
 namespace Handmade
 {
@@ -75,9 +75,14 @@ namespace Handmade
             app.UseAuthorization(); // Determines your role and what parts of the site you can access
 
 
+            // تفعيل الجلسات في التطبيق
+            app.UseSession();
+
+            app.UseAuthorization();
+
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Account}/{action=Register}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }

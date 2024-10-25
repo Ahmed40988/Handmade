@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static NuGet.Client.ManagedCodeConventions;
 
-namespace Handmades.Models
+namespace Handmade.Models
 {
     public class Signup
     {

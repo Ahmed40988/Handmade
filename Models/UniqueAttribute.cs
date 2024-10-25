@@ -1,4 +1,4 @@
-﻿using Handmades.Models;
+﻿
 using System.ComponentModel.DataAnnotations;
 
 namespace Handmade.Models
