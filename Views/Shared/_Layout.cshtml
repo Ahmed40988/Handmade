@@ -43,10 +43,30 @@
                 <a class="text-body mr-3" href="">FAQs</a>
             </div>
         </div>
+            <!-- Modal Structure profile -->
+            <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="profileModalLabel">My Profile</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- سيتم تحميل محتوى البروفايل هنا -->
+                            <div id="profileContent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         <div class="col-lg-6 text-center text-lg-right">
                 @if (User.Identity.IsAuthenticated == true)
                 {
-                    <a href="#prfile" class="text-body mr-3">Welcome @User.Identity.Name</a>
+                    <a  class="text-body mr-3">Welcome @User.Identity.Name</a>
+                    <button type="button" class="btn btn-link text-body" data-toggle="modal" data-target="#profileModal" onclick="loadProfileContent()">My Profile</button>
+
                 }
             <div class="d-inline-flex align-items-center">
                 <div class="btn-group">
@@ -189,8 +209,23 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/easing/easing.min.js"></script>
-
+    <!-- JavaScript Profile -->
     <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script>
+        function loadProfileContent() {
+            $.ajax({
+                url: '@Url.Action("Profile", "Account")',
+                type: 'GET',
+                success: function (data) {
+                    $('#profileContent').html(data);
+                },
+                error: function () {
+                    $('#profileContent').html('<p>Error loading profile data.</p>');
+                }
+            });
+        }
+    </script>
+
 
     <!-- Contact Javascript File -->
  @*    <script src="~/mail/jqBootstrapValidation.min.js"></script>

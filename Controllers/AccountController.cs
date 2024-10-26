@@ -96,6 +96,7 @@ public async Task<IActionResult> Register(RegisterUserViewModel newUserVM, IForm
             if (ModelState.IsValid)
             {
                ApplicationUser userModel= await userManager.FindByNameAsync(revemodel.Username);
+              
                 if (userModel != null)
                 {
                     bool found = await userManager.CheckPasswordAsync(userModel, revemodel.Password);
@@ -116,6 +117,114 @@ public async Task<IActionResult> Register(RegisterUserViewModel newUserVM, IForm
             signInManager.SignOutAsync();
             return RedirectToAction("Login");
         }
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+           
+            var userId = userManager.GetUserId(User); 
+            var user= await userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return RedirectToAction("Login");
+            }
+            var roles = await userManager.GetRolesAsync(user);
+            Profileviewmodel profileviewmodel = new Profileviewmodel();
+            profileviewmodel.Name = user.Name;
+            profileviewmodel.Username = user.UserName;
+            profileviewmodel.Email = user.Email;
+            profileviewmodel.Phone = user.PhoneNumber;
+            profileviewmodel.imageurl = user.imageurl;
+            profileviewmodel.Rolename = roles.FirstOrDefault();
+
+            return View(profileviewmodel);
+
+        }
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> EditProfile()
+        {
+            var user = await userManager.GetUserAsync(User); // جلب المستخدم الحالي
+
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            // تهيئة ViewModel ببيانات المستخدم الحالي
+            var model = new Profileviewmodel
+            {
+                Name = user.Name,
+                Username = user.UserName,
+                Email = user.Email,
+                Phone = user.PhoneNumber,
+                imageurl = user.imageurl
+
+            };
+
+            return View(model); // تمرير البيانات إلى النموذج
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditProfile(Profileviewmodel model, IFormFile newImage)
+        {
+            if (model.Name!=null)
+            {
+                var user = await userManager.GetUserAsync(User); // جلب المستخدم الحالي
+
+                if (user == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                // تحديث بيانات المستخدم
+                user.Name = model.Name;
+                user.Email = model.Email;
+                user.PhoneNumber = model.Phone;
+                user.UserName = model.Username;
+
+
+
+                // التعامل مع تحديث الصورة في حالة اختيار صورة جديدة
+                if (newImage != null && newImage.Length > 0)
+                {
+                    var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(newImage.FileName);
+                    var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", uniqueFileName);
+
+                    using (var stream = new FileStream(imagePath, FileMode.Create))
+                    {
+                        await newImage.CopyToAsync(stream);
+                    }
+
+                    user.imageurl = "/images/" + uniqueFileName;
+                }
+                else
+                {
+                  // if don't update image take old image
+                    user.imageurl = user.imageurl;
+                }
+                var result = await userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    TempData["Message"] = "Profile updated successfully!";
+                    return RedirectToAction("Profile");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return View(model);
+        }
+
+
+
+
         [HttpGet]
         [Authorize(Roles="admin")]
         public IActionResult Addadmin()
@@ -182,5 +291,7 @@ public async Task<IActionResult> Register(RegisterUserViewModel newUserVM, IForm
 			// If ModelState is invalid, redisplay the form with validation errors
 			return View(newUserVM);
 		}
+
+
     }
 }
