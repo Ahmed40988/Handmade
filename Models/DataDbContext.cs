@@ -1,4 +1,5 @@
 ﻿using Handmade.Models;
+using Handmade.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -22,11 +23,11 @@ namespace Handmade.Models
         public DbSet<User> _Users { get; set; }
         public DbSet<Login> _Logins { get; set; }
         public DbSet<Signup> Signups { get; set; }
-
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Role> _Roles { get; set; }
         public DbSet<Supplier> suppliers { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Handmade.Models;
 using Handmade.ViewModel;
+using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 
 public class HomeController : Controller
 {
@@ -21,6 +23,7 @@ public class HomeController : Controller
 
         foreach (var product in Products)
         {
+            _context.Products.Include(p => p.User).ToList();
             product.Name = product.Name ?? "No Name Available";
             product.Description = product.Description ?? "No Description Available";
             product.ImageUrl = product.ImageUrl ?? "/images/default.jpg"; // صورة افتراضية إذا كانت الصورة null

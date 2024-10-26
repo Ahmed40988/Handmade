@@ -1,9 +1,7 @@
 ﻿using Handmade.Models;
 using Handmade.ViewModel;
-using Handmade.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Handmade.Controllers
