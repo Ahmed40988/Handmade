@@ -15,7 +15,7 @@ using System.Security.Claims;
 
 namespace Handmade.Controllers
 {
-    [Authorize(Roles = "admin,Supplier")]
+
 
     public class ProductController : Controller
     {
@@ -25,6 +25,7 @@ namespace Handmade.Controllers
         {
             _context = context;
         }
+        [Authorize(Roles = "User,admin")]
         public IActionResult Add()
         {
             var categories = _context.Categories.Select(c => new SelectListItem
@@ -36,6 +37,7 @@ namespace Handmade.Controllers
             ViewBag.Categories = new SelectList(categories, "Value", "Text");
             return View();
         }
+        [Authorize(Roles = "User,admin")]
         public async Task<IActionResult> Addnewproduct(Product product, IFormFile ImageUrl)
         {
             if (product.Name != null)
@@ -72,12 +74,13 @@ namespace Handmade.Controllers
             ViewBag.Categories = new SelectList(categories, "Value", "Text");
             return View("Add", product);
         }
-      
+        [Authorize(Roles = "admin")]
         public IActionResult Edit(int id)
         {
             Product product = _context.Products.FirstOrDefault(d => d.ID == id);
             return View("Edit", product);
         }
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> saveaEditdep(int id, Product product, IFormFile ImageUrl)
         {
             if (product.Name != null)
@@ -116,7 +119,7 @@ namespace Handmade.Controllers
             }
             return View("Edit", product);
         }
-
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(int id)
         {
             Product product = _context.Products.FirstOrDefault(d => d.ID == id);
