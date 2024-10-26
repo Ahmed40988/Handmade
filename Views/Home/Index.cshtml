@@ -1,25 +1,5 @@
 ﻿@model IEnumerable<Product>
-<head>
 
-
-
-        <!-- Favicon -->
-        <link href="img/favicon.ico" rel="icon">
-
-        <!-- Google Web Fonts -->
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-
-        <!-- Font Awesome -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-
-        <!-- Libraries Stylesheet -->
-        <link href="~/lib/animate/animate.min.css" rel="stylesheet">
-        <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-        <!-- Customized Bootstrap Stylesheet -->
-        <link href="~/css/style.css" rel="stylesheet">
-    </head>
 
 <body>
    <!--DachBoard-->
@@ -27,12 +7,7 @@
 
 
 <div class="container mt-4">
-        @*      <h1 class="text-center mb-4">Products</h1>
-    <!-- Add Product and Dashboard Buttons -->
-   <div class="mb-4 text-center">
-        <a href="@Url.Action("Add", "Product")" class="btn btn-secondary mr-2">Add Your Product</a>
-        <a href="@Url.Action("Index", "Dashboard")" class="btn btn-secondary">Dashboard</a>
-    </div> *@
+
 
     <!-- Search Form -->
     <div class="search-container mb-4 text-center">
@@ -141,7 +116,7 @@
             <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
                 <div class="product-item bg-light mb-3">
                     <!-- Product Image -->
-                    <div class="product-img position-relative overflow-hidden">
+                        <div class="product-img position-relative overflow-hidden" style="height:50vh">
                         <img class="img-fluid w-100 h-100" src="@product.ImageUrl" alt="@product.Name" />
                         
                         <div class="product-action">
@@ -167,15 +142,9 @@
                             @product.Name
                         </a>
                         <p class="product-price">@product.Price.ToString("C")</p>
-                     @*  @*   <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>@product.Price.ToString("C")</h5>
-                            @if (product.DiscountPrice.HasValue)
-                            {
-                                <h6 class="text-muted ml-2">
-                                    <del>@product.DiscountPrice.Value.ToString("C")</del>
-                                </h6>
-                            } *@
-                        </div> 
+                        <p class="user-name">@product.User.Name</p>
+                        </div>
+                      
                         <!-- Product Rating (can be dynamic if needed) -->
                         <div class="d-flex align-items-center justify-content-center mb-1">
                             <small class="fa fa-star text-primary mr-1"></small>
@@ -190,15 +159,5 @@
             
         }
     </div>
-</div> 
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-<script src="~/lib/easing/easing.min.js"></script>
-
-<script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
-
-
-
-<!-- Template Javascript -->
-<script src="~/js/main.js"></script>
+</div>
 </body>

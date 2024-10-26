@@ -24,15 +24,15 @@ namespace Handmade.Models
             // التحقق من الحقل بناءً على الاسم المحدد
             bool recordExists = false;
 
-             if (_propertyName == "Email")
-                {
-                    recordExists = context.Signups.Any(s => s.Email == value.ToString());
-                }
+            if (_propertyName == "Email")
+            {
+                recordExists = context.Signups.Any(s => s.Email == value.ToString());
+            }
 
             else if (_propertyName == "Phone")
             {
                 recordExists = context.Signups.Any(s => s.Phone == value.ToString());
-            } 
+            }
             else if (_propertyName == "Password")
             {
                 recordExists = context.Signups.Any(s => s.Password == value.ToString());
