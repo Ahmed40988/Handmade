@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "viewcate";
+}
+
+<h1> CATEGORIES</h1>
+
+@model IEnumerable<Category>
+
+<div class="container">
+    <div class="row" id="viewcate">
+        <div class="container-fluid pt-5">
+
+            <div class="row px-xl-5 pb-3">
+                @foreach (var category in Model)
+                {
+                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                        <a class="text-decoration-none" href="@Url.Action("ProductsByCategory", "Categorie", new { id = category.ID })">
+                            <div class="cat-item d-flex align-items-center mb-4">
+                                <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                                    <img class="img-fluid" src="@category.CateImage" alt="@category.Name">
+                                </div>
+                                <div class="flex-fill pl-3">
+                                    <h6>@category.Name</h6>
+                                    <small class="text-body">
+                                        @if (category.Products != null)
+                                        {
+                                            @category.Products.Count <h15>Products</h15>
+                                        }
+                                        else
+                                        {
+                                            <h15>No products</h15>
+                                        }
+                                    </small>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add some basic CSS for grid layout -->
+<style>
+    .container {
+        margin-top: 20px;
+    }
+
+    .card {
+        width: 100%;
+    }
+</style>
