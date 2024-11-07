@@ -1,0 +1,36 @@
+﻿@model List<Handmade.Models.Product>
+
+@{
+    ViewData["Title"] = "SearchByName";
+}
+
+
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+                <div class="product-item bg-light mb-3">
+                    <!-- Product Image -->
+                        <div class="product-img position-relative overflow-hidden" style="height:50vh">
+                        <img class="img-fluid w-100 h-100" src="@product.ImageUrl" alt="@product.Name" />
+                        
+                        <div class="product-action">
+                            <!-- Action Buttons (shopping cart, wishlist, etc.) -->
+                            <a class="btn btn-outline-dark btn-square" href="@Url.Action("AddToCart", "Cart", new { id = product.ID })">
+                                <i class="fa fa-shopping-cart"></i>
+                            </a>
+                            <a class="btn btn-outline-dark btn-square" href="@Url.Action("AddToWishlist", "Wishlist", new { id = product.ID })">
+                                <i class="far fa-heart"></i>
+                            </a>
+                            <a class="btn btn-outline-dark btn-square" href="@Url.Action("Compare", "Product", new { id = product.ID })">
+                                <i class="fa fa-sync-alt"></i>
+                            </a>
+                            <a class="btn btn-outline-dark btn-square" href="@Url.Action("Details", "Home", new { id = product.ID })">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+        }
+                    </div>

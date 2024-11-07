@@ -128,6 +128,16 @@ namespace Handmade.Controllers
             return RedirectToAction("listproducts", "Dashboard");
         }
 
+        public IActionResult SearchByName(string name)
+        {
+          List<Product> products =_context.Products
+                .Where(p => p.Name.ToLower().Contains(name.ToLower()))
+                .ToList();
+            return View(products);
+        }
+
+
+
 
     }
 }

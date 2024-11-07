@@ -9,13 +9,14 @@
 <div class="container mt-4">
 
 
-    <!-- Search Form -->
-    <div class="search-container mb-4 text-center">
-            <form method="get" action="@Url.Action("GetByName", "Home")" class="form-inline justify-content-center">
-            <input type="text" name="search" class="form-control mr-2" placeholder="Search for products..." />
-            <button type="submit" class="btn btn-primary">Search</button>
-        </form>
-    </div>
+<!-- Search Form -->
+<div class="search-container mb-4 text-center">
+    <form method="get" action="@Url.Action("SearchByName", "Product")" class="form-inline justify-content-center">
+        <input type="text" name="name" class="form-control mr-2" placeholder="Search for products..." />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+
 
     <!-- Product Grid -->
         <!-- Carousel Start -->

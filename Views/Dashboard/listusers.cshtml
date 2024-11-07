@@ -1,4 +1,5 @@
-﻿@model List<Handmade.Models.User>
+﻿@model List<Handmade.Models.ApplicationUser>
+
 
 @{
     ViewData["Title"] = "User Management";
@@ -12,7 +13,7 @@
             <table class="table table-bordered table-dark table-striped table-hover">
                 <thead class="thead-dark">
                     <tr>
-                        <th>ID</th>
+                        <th>UserName</th>
                         <th>Image</th>
                         <th>Name</th>
                         <th>Email</th>
@@ -24,11 +25,11 @@
                     @foreach (var user in Model)
                     {
                         <tr>
-                            <td>@user.ID</td>
+                            <td>@user.UserName</td>
                             <td>
-                                @if (!string.IsNullOrEmpty(user.imageUrl))
+                                @if (!string.IsNullOrEmpty(user.imageurl))
                                 {
-                                    <img src="@user.imageUrl" alt="User Image"
+                                    <img src="@user.imageurl" alt="User Image"
                                          class="img-thumbnail" style="width: 100px; height: 100px;" />
                                 }
                                 else
@@ -41,11 +42,11 @@
                             <td>@user.RoleId</td>
                             <td>
                                 <div class="btn-group" role="group">
-                                    <a asp-action="Edit" asp-controller="user" asp-route-id="@user.ID"
+                                    <a asp-action="Edit" asp-controller="user" asp-route-id="@user.UserName"
                                        class="btn btn-sm btn-outline-warning me-2">
                                         ✏️ Edit
                                     </a>
-                                    <a asp-action="Delete" asp-controller="user" asp-route-id="@user.ID"
+                                    <a asp-action="Delete" asp-controller="user" asp-route-id="@user.UserName"
                                        class="btn btn-sm btn-outline-danger">
                                         🗑️ Delete
                                     </a>

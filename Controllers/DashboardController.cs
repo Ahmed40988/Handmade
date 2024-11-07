@@ -1,6 +1,8 @@
 ﻿using Handmade.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Handmade.Controllers
 {
@@ -8,10 +10,12 @@ namespace Handmade.Controllers
     public class DashboardController : Controller
     {
         private readonly DataDbContext _context;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public DashboardController(DataDbContext context)
+        public DashboardController(DataDbContext context,UserManager <ApplicationUser> userManager)
         {
             _context = context;
+            this.userManager = userManager;
         }
         public IActionResult Index()
         {
@@ -23,9 +27,9 @@ namespace Handmade.Controllers
             var productlist=_context.Products.ToList();
             return View(productlist);
         }
-        public IActionResult listusers()
+        public async Task<IActionResult >listusers()
         {
-            var listusers = _context._Users.ToList();
+            var listusers = await userManager.Users.ToListAsync();
             return View(listusers);
         }
 
