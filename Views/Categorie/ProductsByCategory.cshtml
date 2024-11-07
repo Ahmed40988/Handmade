@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Products in Category";
+}
+
+<h1>Products in this Category</h1>
+
+<div class="container">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+                <div class="product-item bg-light mb-3">
+                    <!-- Product Image -->
+                    <div class="product-img position-relative overflow-hidden" style="height:50vh">
+                        <div class="img-fluid w-100 h-100 bg-danger">
+                            <img class="img-fluid w-100 h-100 bg-info" src="@product.ImageUrl" alt="@product.Name" />
+                        </div>
+
+                        <div class="product-action">
+                            <!-- Action Buttons (shopping cart, wishlist, etc.) -->
+                            <a class="btn btn-outline-dark btn-square" href="@Url.Action("AddToCart", "Cart", new { id = product.ID })">
+                                <i class="fa fa-shopping-cart"></i>
+                            </a>
+                            <a class="btn btn-outline-dark btn-square" href="@Url.Action("AddToWishlist", "Wishlist", new { id = product.ID })">
+                                <i class="far fa-heart"></i>
+                            </a>
+                            <a class="btn btn-outline-dark btn-square" href="@Url.Action("Compare", "Product", new { id = product.ID })">
+                                <i class="fa fa-sync-alt"></i>
+                            </a>
+                            <a class="btn btn-outline-dark btn-square" href="@Url.Action("Details", "Home", new { id = product.ID })">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Product Details -->
+                    <div class="text-center py-4">
+                        <a class="h6 text-decoration-none text-truncate" href="@Url.Action("Details", "Home", new { id = product.ID })">
+                            @product.Name
+                        </a>
+                        <p class="product-price">@product.Price.ToString("C")</p>
+
+                    </div>
+                    <!-- Product Rating (can be dynamic if needed) -->
+                    <div class="d-flex align-items-center justify-content-center mb-1">
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star-half-alt text-primary mr-1"></small>
+                        @*  <small>(@product.RatingCount)</small> *@
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+
+</div>

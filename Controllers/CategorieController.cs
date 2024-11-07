@@ -79,5 +79,21 @@ namespace Handmade.Controllers
             _context.SaveChanges();
             return RedirectToAction("listcategore", "Dashboard");
         }
+        public IActionResult viewcate()
+        {
+            var cat=_context.Categories.Include(_c => _c.Products).ToList();
+            return View(cat);
+        }
+        public IActionResult ProductsByCategory(int id)
+        {
+            var category = _context.Categories.Include(c => c.Products)
+                                              .FirstOrDefault(c => c.ID == id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            return View(category.Products); // Assuming 'Products' is the collection of products
+        }
     }
 }

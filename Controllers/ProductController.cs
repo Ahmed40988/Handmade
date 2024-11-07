@@ -16,7 +16,7 @@ using System.Security.Claims;
 namespace Handmade.Controllers
 {
 
-
+ 
     public class ProductController : Controller
     {
         private readonly DataDbContext _context;
@@ -37,10 +37,11 @@ namespace Handmade.Controllers
             ViewBag.Categories = new SelectList(categories, "Value", "Text");
             return View();
         }
+
+
         [Authorize(Roles = "User,admin")]
         public async Task<IActionResult> Addnewproduct(Product product, IFormFile ImageUrl)
         {
-            if (product.Name != null)
                 if (product.Name != null)
                 {
                     if (ImageUrl != null && ImageUrl.Length > 0)
@@ -74,6 +75,7 @@ namespace Handmade.Controllers
             ViewBag.Categories = new SelectList(categories, "Value", "Text");
             return View("Add", product);
         }
+
         [Authorize(Roles = "admin")]
         public IActionResult Edit(int id)
         {

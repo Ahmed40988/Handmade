@@ -2,7 +2,6 @@
 using Handmade.Models;
 using System.Collections.Generic;
 using System.Linq;
-using Handmade.Models;
 using Handmade.ViewModel;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
@@ -19,9 +18,8 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         List<Product> Products = _context.Products.ToList();
-
-
-        foreach (var product in Products)
+   
+        foreach (var product in Products) 
         {
             _context.Products.Include(p => p.User).ToList();
             product.Name = product.Name ?? "No Name Available";
@@ -29,12 +27,12 @@ public class HomeController : Controller
             product.ImageUrl = product.ImageUrl ?? "/images/default.jpg"; // صورة افتراضية إذا كانت الصورة null
         }
 
-        return View(Products);
+return View(Products);
     }
 
-    public IActionResult Details(int id)
+    public IActionResult Details(int id)//5
     {
-        var product = _context.Products.FirstOrDefault(p => p.ID == id);
+        var product = _context.Products.FirstOrDefault(p => p.ID == id);//1 2 5 5
         if (product == null)
         {
             return NotFound();
