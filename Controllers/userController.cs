@@ -1,5 +1,7 @@
 ﻿
 using Handmade.Models;
+using Handmade.ViewModel;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,10 +10,11 @@ namespace Handmade.Controllers
     public class UserController : Controller
     {
         private readonly DataDbContext context;
-
-        public UserController(DataDbContext context)
+        private readonly UserManager<ApplicationUser> userManager;
+        public UserController(DataDbContext context, UserManager<ApplicationUser> userManager)
         {
             this.context = context; // استخدم Dependency Injection
+            this.userManager = userManager;
         }
 
         public IActionResult Index()
@@ -20,9 +23,9 @@ namespace Handmade.Controllers
             return View(users); // مرر المستخدمين إلى العرض
         }
 
-        public IActionResult Showuser(int id)
+        public IActionResult Showuser(string id)
         {
-            User D1 = context._Users.FirstOrDefault(d => d.ID == id);
+            var D1 = userManager.Users.FirstOrDefault(d => d.Id == id);
             if (D1 == null) // تحقق من وجود المستخدم
             {
                 return NotFound(); // إذا لم يكن موجودًا، ارجع خطأ 404
@@ -30,16 +33,16 @@ namespace Handmade.Controllers
             return View("Showuser", D1); // مرر المستخدم إلى العرض
         }
 
-        public IActionResult Edit(int id)
+        public IActionResult Edit(string id)
         {
-            User user = context._Users.FirstOrDefault(d => d.ID == id);
-            return View("Edit", user);
+            var D1 = userManager.Users.FirstOrDefault(d => d.Id == id);
+            return View("Edit", D1);
         }
-        public async Task<IActionResult> saveaEditdep(int id, User user, IFormFile ImageUrl)
+        public async Task<IActionResult> saveaEditdep(string id, RegisterUserViewModel user, IFormFile ImageUrl)
         {
             if (user.Name != null)
             {
-                User userDb = context._Users.FirstOrDefault(d => d.ID == id);
+                var userDb = userManager.Users.FirstOrDefault(d => d.Id == id);
 
                 if (ImageUrl != null && ImageUrl.Length > 0)
                 {
@@ -51,19 +54,19 @@ namespace Handmade.Controllers
                     }
 
                     // تحديث مسار الصورة في النموذج
-                    userDb.imageUrl = "/images/" + ImageUrl.FileName;
+                    userDb.imageurl = "/images/" + ImageUrl.FileName;
                 }
                 else
                 {
                     // إذا لم يتم رفع صورة جديدة، احتفظ بالصورة القديمة
-                    userDb.imageUrl = userDb.imageUrl;
+                    userDb.imageurl = userDb.imageurl;
                 }
 
                 // تحديث باقي الخصائص
                 userDb.Name = user.Name;
                 userDb.Email = user.Email;
-                userDb.imageUrl = user.imageUrl;
-                userDb.RoleId = user.RoleId;
+                userDb.imageurl = user.imageurl;
+                
 
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
@@ -74,10 +77,10 @@ namespace Handmade.Controllers
 
 
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
-            User user = context._Users.FirstOrDefault(d => d.ID == id);
-            context._Users.Remove(user);
+            var D1 = userManager.Users.FirstOrDefault(d => d.Id == id);
+           await userManager.DeleteAsync(D1);
             context.SaveChanges();
             return RedirectToAction("listusers", "Dashboard");
         }

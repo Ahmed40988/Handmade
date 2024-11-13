@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Handmade.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20241022184015_DcSD")]
-    partial class DcSD
+    [Migration("20241113161001_update88")]
+    partial class update88
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,10 +88,6 @@ namespace Handmade.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("imageurl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -117,15 +113,25 @@ namespace Handmade.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<int>("Order_ID")
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("ProductID")
                         .HasColumnType("int");
 
                     b.Property<int>("Product_ID")
                         .HasColumnType("int");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
-                    b.HasIndex("Order_ID");
+                    b.HasIndex("ProductID");
 
                     b.HasIndex("Product_ID");
 
@@ -139,6 +145,10 @@ namespace Handmade.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("CateImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -594,19 +604,15 @@ namespace Handmade.Migrations
 
             modelBuilder.Entity("Handmade.Models.Cart", b =>
                 {
-                    b.HasOne("Handmade.Models.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("Order_ID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                    b.HasOne("Handmade.Models.Product", null)
+                        .WithMany("Carts")
+                        .HasForeignKey("ProductID");
 
                     b.HasOne("Handmade.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("Product_ID")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Order");
 
                     b.Navigation("Product");
                 });
@@ -805,6 +811,8 @@ namespace Handmade.Migrations
 
             modelBuilder.Entity("Handmade.Models.Product", b =>
                 {
+                    b.Navigation("Carts");
+
                     b.Navigation("OrderDetails");
 
                     b.Navigation("Reviews");

@@ -8,8 +8,6 @@ namespace Handmade.Models
         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
 
-        //public string Username { get; set; }
-
         [Required(ErrorMessage = "Gender is required")]
         public char Gender { get; set; }
         //public string Phone { get; set; }

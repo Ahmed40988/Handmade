@@ -36,6 +36,7 @@ namespace Handmade.Controllers
         public IActionResult listcategore()
         {
             var listcategore = _context.Categories.ToList();
+
             return View(listcategore);
         } 
         public IActionResult listorder()

@@ -36,7 +36,7 @@ namespace Handmade.Models
 
         [ForeignKey("SupplierId")]
         public virtual Supplier? Supplier { get; set; }
-        public ICollection<Cart> Carts { get; set; }
+        //public ICollection<Cart> Carts { get; set; }
     }
 
 }

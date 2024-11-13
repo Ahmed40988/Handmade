@@ -23,7 +23,7 @@ namespace Handmade.Models
         public DbSet<User> _Users { get; set; }
         public DbSet<Login> _Logins { get; set; }
         public DbSet<Signup> Signups { get; set; }
-        public DbSet<Cart> Carts { get; set; }
+        //public DbSet<Cart> Carts { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Role> _Roles { get; set; }
         public DbSet<Supplier> suppliers { get; set; }
@@ -106,11 +106,11 @@ namespace Handmade.Models
                 .OnDelete(DeleteBehavior.NoAction);
 
             // إعدادات العلاقة بين Cart و Product
-            modelBuilder.Entity<Cart>()
-                .HasOne(c => c.Product)
-                .WithMany()
-                .HasForeignKey(c => c.Product_ID)
-                .OnDelete(DeleteBehavior.NoAction);
+            //modelBuilder.Entity<Cart>()
+            //    .HasOne(c => c.Product)
+            //    .WithMany()
+            //    .HasForeignKey(c => c.Product_ID)
+            //    .OnDelete(DeleteBehavior.NoAction);
 
             //modelBuilder.Entity<Cart>()
             //    .HasOne(c => c.Order)

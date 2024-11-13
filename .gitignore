@@ -55,3 +55,35 @@ Local Settings/
 My Documents/
 Desktop/
 Templates/
+*.DAT
+NTUSER.*
+*.tmp
+*.lnk
+*.DAT
+/Downloads/
+/Favorites/
+/IntelGraphicsProfiles/
+/Music/
+/Links/
+*.blf
+*.regtrans-ms
+
+/../*
+../.viminfo.tmp
+../Downloads/
+../Favorites/
+../IntelGraphicsProfiles/
+../Links/
+../Music/
+../NTUSER.DAT*
+../OneDrive/
+../Pictures/
+../Searches/
+../Videos/
+../ntuser.dat.LOG*
+../Notepad++/
+../WPS Cloud Files/
+battery-report.html
+*.blf
+*.regtrans-ms
+*.ini

@@ -5,7 +5,7 @@
 namespace Handmade.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateDecimalTypes : Migration
+    public partial class update88 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -85,10 +85,6 @@ namespace Handmade.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("imageurl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -106,29 +102,6 @@ namespace Handmade.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Handmade.Models.Cart", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("Order_ID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Product_ID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("Order_ID");
-
-                    b.HasIndex("Product_ID");
-
-                    b.ToTable("Carts");
-                });
-
             modelBuilder.Entity("Handmade.Models.Category", b =>
                 {
                     b.Property<int>("ID")
@@ -136,6 +109,10 @@ namespace Handmade.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("CateImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -179,9 +156,6 @@ namespace Handmade.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<int>("CartID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
@@ -192,8 +166,6 @@ namespace Handmade.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("CartID");
 
                     b.HasIndex("User_ID");
 
@@ -589,40 +561,13 @@ namespace Handmade.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Handmade.Models.Cart", b =>
-                {
-                    b.HasOne("Handmade.Models.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("Order_ID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Handmade.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("Product_ID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("Handmade.Models.Order", b =>
                 {
-                    b.HasOne("Handmade.Models.Cart", "Cart")
-                        .WithMany()
-                        .HasForeignKey("CartID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Handmade.Models.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("User_ID")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Cart");
 
                     b.Navigation("User");
                 });

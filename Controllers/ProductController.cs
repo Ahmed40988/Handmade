@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
+using Microsoft.CodeAnalysis;
 
 
 namespace Handmade.Controllers
@@ -124,6 +125,9 @@ namespace Handmade.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult Delete(int id)
         {
+            //// احذف السجلات المرتبطة بالمنتج في جدول Carts
+            //var carts = _context.Carts.Where(c => c.Product_ID == id);
+            //_context.Carts.RemoveRange(carts);
             Product product = _context.Products.FirstOrDefault(d => d.ID == id);
             _context.Products.Remove(product);
             _context.SaveChanges();

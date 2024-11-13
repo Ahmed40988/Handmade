@@ -14,7 +14,7 @@ namespace Handmade.Models
         public User User { get; set; }
         public ICollection<OrderDetails> OrderDetails { get; set; }
         public Payment Payment { get; set; }
-        public Cart Cart { get; set; }
+        //public Cart Cart { get; set; }
     }
 
 }

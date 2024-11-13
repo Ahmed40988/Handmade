@@ -1,14 +1,8 @@
-﻿
-@model Handmade.Models.User
+﻿@model Handmade.Models.ApplicationUser
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-@{
-    ViewData["Title"] = "Edit User";
-}
 
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -20,8 +14,8 @@
                     <h3 class="mb-0">Update User</h3>
                 </div>
                 <div class="card-body" style="background-color: #f9f9f9;">
-                    <form method="post" asp-action="saveaEditdep" asp-controller="User"
-                          asp-route-id="@Model.ID" enctype="multipart/form-data">
+                    <form method="post" asp-action="saveaEditdep" asp-controller="user"
+                          asp-route-id="@Model.Id" enctype="multipart/form-data">
 
                         <div class="form-group">
                             <label asp-for="Name" class="font-weight-bold">User Name</label>
@@ -36,20 +30,14 @@
                         </div>
 
                         <div class="form-group">
-                            <label asp-for="RoleId" class="font-weight-bold">Role ID</label>
-                            <input asp-for="RoleId" class="form-control" placeholder="Enter role ID" />
-                            <span asp-validation-for="RoleId" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
                             <label>Current Image</label>
-                            <img src="@Model.imageUrl" alt="User Image" class="img-thumbnail mb-2" width="150" />
+                            <img src="@Model.imageurl" alt="User Image" class="img-thumbnail mb-2" width="150" />
                         </div>
 
                         <div class="form-group">
-                            <label asp-for="imageUrl" class="font-weight-bold">Upload New Image</label>
-                            <input asp-for="imageUrl" type="file" class="form-control-file" />
-                            <span asp-validation-for="imageUrl" class="text-danger"></span>
+                            <label asp-for="imageurl" class="font-weight-bold">Upload New Image</label>
+                            <input asp-for="imageurl" type="file" class="form-control-file" />
+                            <span asp-validation-for="imageurl" class="text-danger"></span>
                         </div>
 
                         <button type="submit" class="btn btn-success btn-block mt-4">Update User</button>
